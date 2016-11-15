@@ -1,11 +1,18 @@
 import React from 'react';
 import SubredditSelector from './SubredditSelector';
-import {subredditInput} from '../../actions/index';
+import * as actionCreators from '../../actions/index';
+import {subredditListAdd} from '../../actions/index';
+import {bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 
 class Home extends React.Component{
   constructor(props) {
     super(props);
+    console.log(props, 'home this.props');
+  }
+
+  componentWillReceiveProps(nextProp) {
+    console.log(nextProp);
   }
 
   /**
@@ -15,9 +22,9 @@ class Home extends React.Component{
    * @returns {nothing}
    */
   handleSubreddit() {
-    console.log('handling subreddit', this.props.subredditInput);
-    var subreddit = this.props.subredditInput;
-    this.props.dispatch(subredditInput(''));
+    var subreddit = this.props.state.subredditInput;
+    this.props.actions.subredditListAdd(subreddit);
+    this.props.actions.subredditInput('');
   }
   render() {
     return (
@@ -30,8 +37,16 @@ class Home extends React.Component{
 }
 const mapStateToProps = (state) => {
   return {
-    subredditInput: state.subredditInput
+    state: {
+      subredditInput: state.subredditInput,
+      subredditList: state.subredditList
+    }
   }
 }
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(actionCreators, dispatch)
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
