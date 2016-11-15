@@ -14,7 +14,7 @@ function subredditInput (state = '', action) {
 }
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state,
+  subredditInput,
 });
 
 export default rootReducer;

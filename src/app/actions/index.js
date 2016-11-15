@@ -1,10 +1,10 @@
 // SubredditSelector
-export const  SUBREDDIT_INPUT = 'SUBBREDDIT_INPUT';
+export const  SUBREDDIT_INPUT = 'SUBREDDIT_INPUT';
 
 
 /********************
 *** ACTIONS FOR SUBREDDIT
 **********************/
-export function subreeditInput (text) {
+export function subredditInput (text) {
   return { type: SUBREDDIT_INPUT, text};
 }
