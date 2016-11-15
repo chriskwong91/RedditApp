@@ -10,13 +10,11 @@ import './components/bundle.scss';
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 const store = createStoreWithMiddleware(reducers);
-export default store;
 
 import App from './components/App';
 import Home from './components/home/Home';
 import About from './components/about/About';
 
-console.log('store in index', store);
 ReactDOM.render(
   <Provider store={store}>
     <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
