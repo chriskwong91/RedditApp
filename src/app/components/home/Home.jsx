@@ -1,5 +1,6 @@
 import React from 'react';
 import SubredditSelector from './SubredditSelector';
+import SubRedditsList from './SubRedditsList';
 import * as actionCreators from '../../actions/index';
 import {subredditListAdd} from '../../actions/index';
 import {bindActionCreators } from 'redux';
@@ -81,8 +82,9 @@ class Home extends React.Component{
   render() {
     return (
       <div className="container home">
-        <h1>Home page</h1>
+        <h1>Welcome to the Subreddit Reader</h1>
         <SubredditSelector handleSubreddit={this.handleSubreddit.bind(this)}/>
+        <SubRedditsList />
       </div>
     )
   }

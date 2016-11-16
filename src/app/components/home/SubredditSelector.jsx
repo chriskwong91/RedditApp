@@ -30,7 +30,7 @@ class SubredditSelector extends React.Component {
     return (
       <div className="container subredditselector">
           <input type="text" onKeyUp={this.handleChange.bind(this)} ref='input'></input>
-          <button onClick={this.props.handleSubreddit}>Add</button>
+          <button onClick={this.props.handleSubreddit}>Add SubReddit</button>
       </div>
     )
   }
