@@ -75,7 +75,7 @@ class Home extends React.Component{
    */
   fetchHotReddit() {
     $.ajax({
-      url: 'http://localhost:3000/api/hot',
+      url: 'http://localhost:8080/api/hot',
       method: 'GET',
       success: (results) => {
         var results = JSON.parse(results);
@@ -98,7 +98,7 @@ class Home extends React.Component{
    */
   fetchSubreddit(subreddit) {
     $.ajax({
-      url: 'http://localhost:3000/api/subreddit/' + subreddit,
+      url: 'http://localhost:8080/api/subreddit/' + subreddit,
       method: 'GET',
       success: (results) => {
         this.props.actions.subredditPostsAdd({
