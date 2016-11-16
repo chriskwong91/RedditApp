@@ -42,6 +42,23 @@ function subredditList(state = [], action) {
 function subredditListPosts(state = [], action) {
   switch(action.type) {
     case  SUBREDDIT_POSTS_ADD:
+      var updated = false;
+      var updatestate = state;
+      updatestate.map((subreddit) => {
+        if (action.obj.name === subreddit.name) {
+          var posts = subreddit.posts;
+          posts.data.after = action.obj.posts.data.after;
+          console.log(posts);
+          posts.data.children = posts.data.children.concat(action.obj.posts.data.children);
+          updated = true;
+          var sub = subreddit;
+          sub.posts = posts;
+          return sub;
+        }
+      });
+      if (updated) {
+        return updatestate;
+      }
       return [
       ...state,
       action.obj];

@@ -22,7 +22,7 @@ app.get('/api/subreddit/:red', (req, res) => {
   console.log('getting subreddit', req.url);
   var url = req.url.split('/');
   var subreddit = url[url.length - 1];
-  request('https://www.reddit.com/r/' + subreddit + '.json', (err, response, body) => {
+  request('https://www.reddit.com/r/' + subreddit, (err, response, body) => {
     if (!err && response.statusCode == 200) {
       console.log(body);
       res.send(body);

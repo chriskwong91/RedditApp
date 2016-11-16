@@ -6,6 +6,7 @@ import * as actionCreators from '../../actions/index';
 import {subredditListAdd} from '../../actions/index';
 import {bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
+import _ from 'underscore';
 
 class Home extends React.Component{
   constructor(props) {
@@ -14,6 +15,7 @@ class Home extends React.Component{
     this.state = {
       mergeSublist: [],
       hotList: [],
+      lastUpdate: 0,
     };
 
     this.setUpScroll();
@@ -25,10 +27,35 @@ class Home extends React.Component{
 
   setUpScroll() {
     window.onscroll = function(ev) {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        alert('hi');
-    }
-};
+      if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+          if (this.state.lastUpdate === 0) {
+            this.setState({
+              lastUpdate: new Date().getTime(),
+            });
+            this.getLastPosts();
+          }
+
+          var now = new Date().getTime();
+          if (now - this.state.lastUpdate > 3000) {
+            this.getLastPosts();
+            this.setState({
+              lastUpdate: now,
+            });
+          }
+      }
+    }.bind(this);
+  }
+
+  getLastPosts() {
+    var subreddits = this.props.state.subredditListPosts;
+    console.log(subreddits);
+    subreddits.forEach((post) => {
+      var query = post.name + '.json?after=' + post.posts.data.after;
+      console.log('query', query);
+      this.fetchSubreddit(query);
+    });
+
+
   }
   /**
    * @name fetchHotReddit
@@ -68,8 +95,9 @@ class Home extends React.Component{
       url: 'http://localhost:3000/api/subreddit/' + subreddit,
       method: 'GET',
       success: (results) => {
+        console.log(typeof results);
         this.props.actions.subredditPostsAdd({
-          name:subreddit,
+          name:subreddit.split('.')[0],
           posts: JSON.parse(results)
         });
         this.mergeSubreddits();
@@ -93,7 +121,7 @@ class Home extends React.Component{
     var subreddit = this.props.state.subredditInput;
     this.props.actions.subredditListAdd(subreddit);
     this.props.actions.subredditInput('');
-    this.fetchSubreddit(subreddit);
+    this.fetchSubreddit(subreddit + '.json');
   }
 
   mergeSubreddits() {
