@@ -30,10 +30,13 @@ class SubRedditsList extends React.Component {
   render() {
     return (
       <div className="container subredditlist">
-        <h1>Your SubReddits(click on title to remove subreddit)</h1>
-        {this.state.list.map((sublist) => {
-          return <SubRedditsListItem subreddit={sublist} onClick={this.handleClick.bind(this)}/>
-        })}
+        <h1>Your SubReddits</h1>
+        <h3>(click on title to remove subreddit)</h3>
+        <div className='row'>
+          {this.state.list.map((sublist) => {
+            return <SubRedditsListItem subreddit={sublist} onClick={this.handleClick.bind(this)}/>
+          })}
+        </div>
       </div>
     )
   }

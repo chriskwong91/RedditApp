@@ -15,13 +15,21 @@ class Home extends React.Component{
       mergeSublist: [],
       hotList: [],
     };
-    console.log(props, 'home this.props');
+
+    this.setUpScroll();
   }
 
   componentWillReceiveProps(nextProp) {
     console.log('next prop', nextProp);
   }
 
+  setUpScroll() {
+    window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        alert('hi');
+    }
+};
+  }
   /**
    * @name fetchHotReddit
    * @desc Initiall grabs the top reddit posts
@@ -116,12 +124,14 @@ class Home extends React.Component{
     console.log('current state', this.state);
   }
   render() {
+    var subreddits = this.props.state.subredditList;
+    console.log('subsub', subreddits, this.props);
     return (
       <div className="container home">
         <h1>Welcome to the Subreddit Reader</h1>
         <SubredditSelector handleSubreddit={this.handleSubreddit.bind(this)}/>
         <SubRedditsList remerge={this.mergeSubreddits.bind(this)}/>
-        <PostList posts={this.state.mergeSublist} />
+        <PostList posts={this.state.mergeSublist} subreddits={this.props.state.subredditList} />
       </div>
     )
   }
