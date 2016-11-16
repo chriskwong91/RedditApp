@@ -17,6 +17,12 @@ class SubRedditsList extends React.Component {
     });
   }
 
+  /**
+   * @name handleClick
+   * @desc Handles click when adding a subreddit
+   * @param none
+   * @returns {nothing}
+   */
   handleClick(e) {
     var subreddit = e.target.innerText;
     var list = this.state.list;

@@ -24,6 +24,12 @@ class Home extends React.Component{
   componentWillReceiveProps(nextProp) {
   }
 
+  /**
+   * @name setUpScroll
+   * @desc Creates an event lister for scrolling to bottom of page
+   * @param none
+   * @returns {nothing}
+   */
   setUpScroll() {
     window.onscroll = function(ev) {
       if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
@@ -45,6 +51,12 @@ class Home extends React.Component{
     }.bind(this);
   }
 
+  /**
+   * @name getLastPosts
+   * @desc Grabs the last posts in existing list and fetches more subreddit posts
+   * @param none
+   * @returns {nothing}
+   */
   getLastPosts() {
     $('#loader').removeClass('hide');
     var subreddits = this.props.state.subredditListPosts;
@@ -116,6 +128,12 @@ class Home extends React.Component{
     this.fetchSubreddit(subreddit + '.json');
   }
 
+  /**
+   * @name mergeSubreddits
+   * @desc Combines all of the subreddit posts and orders by top score
+   * @param none
+   * @returns {nothing}
+   */
   mergeSubreddits() {
     $('#loader').addClass('hide');
     var list = [];
