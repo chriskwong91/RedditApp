@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SUBREDDIT_INPUT, SUBREDDIT_LIST_ADD} from '../actions/index';
+import { SUBREDDIT_INPUT, SUBREDDIT_LIST_ADD, HOTREDDIT} from '../actions/index';
 
 // const rootReducer = combineReducers({
 //   state: (state = {}) => state,
@@ -24,9 +24,19 @@ function subredditList(state = [], action) {
   }
 }
 
+function hotReddit(state = {}, action) {
+  switch(action.type) {
+    case  HOTREDDIT:
+      return action.obj;
+      default:
+        return state;
+  }
+}
+
 const rootReducer = combineReducers({
   subredditInput,
-  subredditList
+  subredditList,
+  hotReddit
 });
 
 export default rootReducer;

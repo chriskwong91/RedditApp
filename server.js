@@ -18,6 +18,20 @@ app.get('/api/hot', (req, res) => {
   });
 });
 
+app.get('/api/subreddit/:red', (req, res) => {
+  console.log('getting subreddit', req.url);
+  var url = req.url.split('/');
+  var subreddit = url[url.length - 1];
+  request('https://www.reddit.com/r/' + subreddit + '.json', (err, response, body) => {
+    if (!err && response.statusCode == 200) {
+      console.log(body);
+      res.send(body);
+    } else {
+      res.send(404);
+    }
+  });
+});
+
 app.use(express.static('./'));
 app.use(express.static('dist'));
 
