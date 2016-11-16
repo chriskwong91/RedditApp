@@ -8,10 +8,6 @@ import {connect} from 'react-redux';
 class Home extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
-      hotReddits: {},
-      subReddits: [],
-    };
     this.fetchHotReddit();
     console.log(props, 'home this.props');
   }
@@ -53,16 +49,10 @@ class Home extends React.Component{
       url: 'http://localhost:3000/api/subreddit/' + subreddit,
       method: 'GET',
       success: (results) => {
-        var subReddits = this.state.subReddits;
-        subReddits.push({
-          name: subreddit,
-          posts: JSON.parse(results),
+        this.props.actions.subredditPostsAdd({
+          name:subreddit,
+          posts: JSON.parse(results)
         });
-
-        this.setState({
-          subReddits: subReddits,
-        });
-
         this.mergeSubreddits();
       },
       error: (err) => {
@@ -85,7 +75,7 @@ class Home extends React.Component{
   }
 
   mergeSubreddits() {
-
+    console.log('merging subs', this.props.state.subReddits)
 
   }
   render() {
@@ -103,6 +93,7 @@ const mapStateToProps = (state) => {
       subredditInput: state.subredditInput,
       subredditList: state.subredditList,
       hotReddit: state.hotReddit,
+      subredditListPosts: state.subredditListPosts
     }
   }
 }

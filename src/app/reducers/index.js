@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import { SUBREDDIT_INPUT, SUBREDDIT_LIST_ADD, HOTREDDIT} from '../actions/index';
+import { SUBREDDIT_INPUT, SUBREDDIT_LIST_ADD, HOTREDDIT,
+          SUBREDDIT_POSTS_ADD, SUBREDDIT_POSTS_DEL
+        } from '../actions/index';
 
 // const rootReducer = combineReducers({
 //   state: (state = {}) => state,
@@ -24,6 +26,31 @@ function subredditList(state = [], action) {
   }
 }
 
+function subredditListPosts(state = [], action) {
+  switch(action.type) {
+    case  SUBREDDIT_POSTS_ADD:
+      return [
+      ...state,
+      action.obj];
+    case SUBREDDIT_POSTS_DEL:
+      var subreddits = state;
+      var index;
+      state.forEach((subreddit, i) => {
+        if (action.text === subreddit.name) {
+          index = i;
+        }
+      });
+
+      if (i === undefined) {
+        return state;
+      }
+      subreddits.splice(index, 1);
+      return subreddits;
+    default:
+      return state;
+  }
+}
+
 function hotReddit(state = {}, action) {
   switch(action.type) {
     case  HOTREDDIT:
@@ -36,7 +63,8 @@ function hotReddit(state = {}, action) {
 const rootReducer = combineReducers({
   subredditInput,
   subredditList,
-  hotReddit
+  hotReddit,
+  subredditListPosts
 });
 
 export default rootReducer;
