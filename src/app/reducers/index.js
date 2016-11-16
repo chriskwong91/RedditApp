@@ -3,9 +3,6 @@ import { SUBREDDIT_INPUT, SUBREDDIT_LIST_ADD, HOTREDDIT,
           SUBREDDIT_POSTS_ADD, SUBREDDIT_POSTS_DEL, SUBREDDIT_LIST_DEL
         } from '../actions/index';
 
-// const rootReducer = combineReducers({
-//   state: (state = {}) => state,
-// });
 function subredditInput (state = '', action) {
   switch(action.type) {
     case SUBREDDIT_INPUT:
@@ -48,7 +45,6 @@ function subredditListPosts(state = [], action) {
         if (action.obj.name === subreddit.name) {
           var posts = subreddit.posts;
           posts.data.after = action.obj.posts.data.after;
-          console.log(posts);
           posts.data.children = posts.data.children.concat(action.obj.posts.data.children);
           updated = true;
           var sub = subreddit;

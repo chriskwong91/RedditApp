@@ -2,8 +2,6 @@ import React from 'react';
 import PostListItem from './PostListItem';
 
 function PostList({posts, subreddits}) {
-  console.log('posts in postlist', posts);
-  console.log(subreddits);
   return (
     posts.length === 0 ?
     <div className='container loader posts'></div> :

@@ -7,7 +7,6 @@ import {bindActionCreators } from 'redux';
 class SubRedditsList extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props, 'subreditlist')
     this.state = {
       list: [],
     };
