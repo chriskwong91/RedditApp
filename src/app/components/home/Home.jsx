@@ -8,11 +8,30 @@ import {connect} from 'react-redux';
 class Home extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {
+      hotReddits: {},
+    };
+    this.fetchHotReddit();
     console.log(props, 'home this.props');
   }
 
   componentWillReceiveProps(nextProp) {
     console.log(nextProp);
+  }
+
+  fetchHotReddit() {
+    console.log('making request');
+    $.ajax({
+      url: 'http://localhost:3000/api/hot',
+      method: 'GET',
+      success: (results) => {
+        var hotResults = JSON.parse(results);
+        console.log('success', hotResults)
+      },
+      error: (err) => {
+        console.log('there was an error', err);
+      }
+    });
   }
 
   /**

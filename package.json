@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config ./webpack/webpack-dev.config.js --watch --colors",
     "build": "rm -rf dist && webpack --config ./webpack/webpack-prod.config.js --colors",
+    "webpack": "webpack --config ./webpack/webpack-prod.config.js --watch --colors",
     "start": "PORT=8080 pm2 start ./server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
@@ -61,10 +62,12 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
     "express": "^4.13.4",
+    "morgan": "^1.7.0",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "request": "^2.78.0"
   }
 }
