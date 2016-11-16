@@ -1,6 +1,7 @@
 // SubredditSelector
 export const  SUBREDDIT_INPUT = 'SUBREDDIT_INPUT';
 export const SUBREDDIT_LIST_ADD = 'SUBREDDIT_LIST_ADD';
+export const SUBREDDIT_LIST_DEL = 'SUBREDDIT_LIST_DEL';
 export const SUBREDDIT_POSTS_ADD = 'SUBREDDIT_POSTS_ADD';
 export const SUBREDDIT_POSTS_DEL = 'SUBREDDIT_POSTS_DEL';
 export const HOTREDDIT = 'HOTREDDIT';
@@ -15,6 +16,10 @@ export function subredditInput (text) {
 
 export function subredditListAdd (text) {
   return { type: SUBREDDIT_LIST_ADD,
+    text};
+}
+export function subredditListDel (text) {
+  return { type: SUBREDDIT_LIST_DEL,
     text};
 }
 

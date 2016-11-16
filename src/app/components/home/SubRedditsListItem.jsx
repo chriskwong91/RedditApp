@@ -1,8 +1,8 @@
 import React from 'react';
 
-function SubRedditsListItem({subreddit}) {
+function SubRedditsListItem({subreddit, onClick}) {
   return (
-    <div className="container about">
+    <div onClick={onClick}className="container about">
       <h1>{subreddit}</h1>
     </div>
   )
