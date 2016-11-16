@@ -25,10 +25,11 @@ class SubRedditsList extends React.Component {
     this.setState({list});
     this.props.removeSubredditPosts(subreddit);
     this.props.removeSubredditListItem(subreddit);
+    this.props.remerge();
   }
   render() {
     return (
-      <div className="container about">
+      <div className="container subredditlist">
         <h1>Your SubReddits(click on title to remove subreddit)</h1>
         {this.state.list.map((sublist) => {
           return <SubRedditsListItem subreddit={sublist} onClick={this.handleClick.bind(this)}/>

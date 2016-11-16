@@ -1,6 +1,7 @@
 import React from 'react';
 import SubredditSelector from './SubredditSelector';
 import SubRedditsList from './SubRedditsList';
+import PostList from './PostList';
 import * as actionCreators from '../../actions/index';
 import {subredditListAdd} from '../../actions/index';
 import {bindActionCreators } from 'redux';
@@ -10,6 +11,10 @@ class Home extends React.Component{
   constructor(props) {
     super(props);
     this.fetchHotReddit();
+    this.state = {
+      mergeSublist: [],
+      hotList: [],
+    };
     console.log(props, 'home this.props');
   }
 
@@ -24,12 +29,17 @@ class Home extends React.Component{
    * @returns {nothing}
    */
   fetchHotReddit() {
-    console.log('making request');
     $.ajax({
       url: 'http://localhost:3000/api/hot',
       method: 'GET',
       success: (results) => {
-        this.props.actions.hotReddit(JSON.parse(results));
+        var results = JSON.parse(results);
+        this.props.actions.hotReddit(results);
+        console.log(results);
+        this.setState({
+          mergeSublist: results.data.children,
+          hotList: results.data.children,
+        });
         console.log('success', this.props.state.hotReddit);
       },
       error: (err) => {
@@ -69,6 +79,9 @@ class Home extends React.Component{
    * @returns {nothing}
    */
   handleSubreddit() {
+    this.setState({
+      mergeSublist: []
+    });
     var subreddit = this.props.state.subredditInput;
     this.props.actions.subredditListAdd(subreddit);
     this.props.actions.subredditInput('');
@@ -76,15 +89,39 @@ class Home extends React.Component{
   }
 
   mergeSubreddits() {
-    console.log('merging subs', this.props.state.subReddits)
+    console.log(this.props);
+    var list = [];
+    if (this.props.state.subredditListPosts.length===0) {
+      list = this.state.hotList;
+    }
+    console.log('merging subs', this.props.state.subredditListPosts);
+    this.props.state.subredditListPosts.forEach((post) => {
+      list = list.concat(post.posts.data.children);
+    });
 
+    list.sort((a,b) =>{
+      if (a.data.score < b.data.score) {
+        return 1;
+      }
+      if (a.data.score > b.data.score) {
+        return -1;
+      }
+      return 0;
+    });
+    console.log(list, 'list after merging');
+    this.setState({
+      mergeSublist: list
+    });
+
+    console.log('current state', this.state);
   }
   render() {
     return (
       <div className="container home">
         <h1>Welcome to the Subreddit Reader</h1>
         <SubredditSelector handleSubreddit={this.handleSubreddit.bind(this)}/>
-        <SubRedditsList />
+        <SubRedditsList remerge={this.mergeSubreddits.bind(this)}/>
+        <PostList posts={this.state.mergeSublist} />
       </div>
     )
   }

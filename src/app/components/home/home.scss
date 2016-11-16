@@ -1,6 +1,41 @@
 .home {
-
+  background-color: $light-gray;
   h1 {
     color: $light-blue;
   }
+}
+
+.postlist {
+  margin: 10px;
+  border: 1px solid black;
+  p {
+    color: black;
+    font-size: 16px;
+  }
+}
+
+.subredditselector {
+  background-color: $light-gray;
+}
+
+.subredditlist {
+  margin-bottom: 50px;
+}
+
+.posts{
+  background-color: white;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
